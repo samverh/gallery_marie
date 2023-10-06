@@ -1,0 +1,35 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-8">
+                <section id="gallery" class="py-5">
+                    <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
+
+                    <div class="row">
+
+                        {% for image_file in image_files %}
+                            <div class="col-md-4 p-2">
+                                <div class="card border-0" style="border-radius: 0%;">
+                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <!-- <div class="card-body bg-light"> -->
+                                        <!-- <h6 class="card-title">Item Title</h6> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        {% endfor %}
+        
+                    </div>
+                    
+                </section>
+            </div>
+            <div class="col-md-2"></div>
+
+        </div>
+    </div>
+{% endblock %}

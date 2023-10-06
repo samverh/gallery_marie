@@ -1,0 +1,53 @@
+{% extends "wrapper.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-8">
+                <section id="gallery" class="py-5">
+                    
+                    <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
+                    <div class="row">
+                        <h4 class="text-left mb-5 font-weight-light">Bar</h4>
+                        {% for image_file in image_files_bar %}
+                            <div class="col-md-6 p-2">
+                                <div class="card border-0" style="border-radius: 0%;">
+                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <!-- <div class="card-body bg-light"> -->
+                                        <!-- <h6 class="card-title">Item Title</h6> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <br>
+                    <br>
+                    
+                    <div class="row">
+                        <h4 class="text-left mb-5 font-weight-light">Bioscoop</h4>
+                        {% for image_file in image_files_bioscoop %}
+                            <div class="col-md-6 p-2">
+                                <div class="card border-0" style="border-radius: 0%;">
+                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <!-- <div class="card-body bg-light"> -->
+                                        <!-- <h6 class="card-title">Item Title</h6> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <br>                    
+                </section>
+            </div> 
+
+            <div class="col-md-2"></div> 
+        </div>
+    </div>
+{% endblock %}
