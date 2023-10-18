@@ -16,10 +16,10 @@
                         {% for image_file in image_files %}
                             <div class="col-md-6 p-2">
                                 <div class="card border-0" style="border-radius: 0%;">
-                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
-                                    <!-- <div class="card-body bg-light"> -->
-                                        <!-- <h6 class="card-title">Item Title</h6> -->
-                                    <!-- </div> -->
+                                    {{ image_file.title }}
+
+                                    <img src="/media/images/{{ image_file.title }}" alt="{{ image_file }}">
+               
                                 </div>
                             </div>
                         {% endfor %}
@@ -32,4 +32,5 @@
             <div class="col-md-2"></div> 
         </div>
     </div>
+    
 {% endblock %}

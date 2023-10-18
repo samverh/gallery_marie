@@ -23,7 +23,9 @@ def index(request):
 def under_your_feet(request):
 
     # pass the list of image files to the template
-    files = Image.objects.filter(set="under_your_feet")
+    files = Image.objects.filter(set="under_your_feet")[:10]
+    print(files)
+    # files_titles = ["/media/" + file.title for file in files]
     context = {
         'image_files': files,
         'title': 'Under Your Feet'
