@@ -93,7 +93,8 @@ DATABASES = {
         'USER': "postgres",
         'PASSWORD': "postgres",
         'HOST': "localhost",
-        'PORT': os.environ.get("DB_PORT"),
+        'PORT': 5432,
+        # os.environ.get("DB_PORT")
     }
 }
 
