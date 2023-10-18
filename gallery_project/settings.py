@@ -89,10 +89,15 @@ WSGI_APPLICATION = 'gallery_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "gallery_db",
-        'USER': "postgres",
-        'PASSWORD': "postgres",
-        'HOST': "localhost",
+        'NAME': "gallery-marie-postgres",
+        # 'USER': "postgres",
+        # 'PASSWORD': "postgres",
+        # 'HOST': "localhost",
+        'URL': os.environ.get("POSTGRES_URL"),
+        'USER': os.environ.get("POSTGRES_URL"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
+        'DATABASE': os.environ.get("POSTGRES_DATABASE"),
         # 'PORT': 5432,
         # os.environ.get("DB_PORT")
     }
