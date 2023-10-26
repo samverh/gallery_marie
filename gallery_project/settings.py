@@ -79,29 +79,29 @@ WSGI_APPLICATION = 'gallery_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "gallery-marie-postgres",
-        # 'USER': "postgres",
-        'PASSWORD': "CoenaLvt0Vp2",
-        # 'HOST': "localhost",
-        'URL': os.environ.get("POSTGRES_URL"),
-        'USER': os.environ.get("POSTGRES_URL"),
-        # 'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
-        'DATABASE': os.environ.get("POSTGRES_DATABASE"),
-        # 'PORT': 5432,
-        # os.environ.get("DB_PORT")
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': "gallery-marie-postgres",
+#         # 'USER': "postgres",
+#         'PASSWORD': "CoenaLvt0Vp2",
+#         # 'HOST': "localhost",
+#         'URL': os.environ.get("POSTGRES_URL"),
+#         'USER': os.environ.get("POSTGRES_URL"),
+#         # 'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+#         'HOST': os.environ.get("POSTGRES_HOST"),
+#         'DATABASE': os.environ.get("POSTGRES_DATABASE"),
+#         # 'PORT': 5432,
+#         # os.environ.get("DB_PORT")
+#     }
+# }
 
 
 # DATABASES['default'] =  dj_database_url.config()
