@@ -13,12 +13,13 @@
                     <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
                     <div class="row">
 
-                        {% for image_file in image_files %}
+                        {% for image in images %}
                             <div class="col-md-6 p-2">
                                 <div class="card border-0" style="border-radius: 0%;">
-                                    {{ image_file.title }}
+                                    <!-- {{ image_file.title }} -->
+                                    <img src="{{ image }}" alt="{{ image.title }}" width="300">
 
-                                    <img src="images/{{ image_file }}" alt="{{ image_file }}">
+                                    <!-- <img src="images/{{ image_file }}" alt="{{ image_file }}"> -->
                
                                 </div>
                             </div>

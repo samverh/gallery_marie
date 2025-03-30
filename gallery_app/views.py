@@ -1,6 +1,7 @@
 from django.shortcuts import render
 # from django.conf import settings
 from .models import Image
+import cloudinary.api
 
 import os
 
@@ -9,28 +10,33 @@ def index(request):
     
     # files = os.listdir(os.path.join(settings.STATIC_ROOT, "images/under_your_feet"))
     # files = ["images/under_your_feet/" + file for file in files]
-    files = Image.objects.all()
+    # files = Image.objects.all()
+    # images = Image.objects.all()
 
-    # Pass the list of image files to the template
+    images = cloudinary.api.resources(type="upload", prefix="gallerymarie", resource_type="image")
+    image_urls = [img["secure_url"] for img in images["resources"]]
+
     context = {
-        'image_files': files,
-    }
+            "images": image_urls
+        }
 
-    # return render(request, 'your_template.html', context)
     return render(request, "index.html", context)
 
 
 def under_your_feet(request):
 
-    # pass the list of image files to the template
-    files = Image.objects.filter(set="under_your_feet")[:10]
-    print(files)
-    # files_titles = ["/media/" + file.title for file in files]
+    # get images from cloudinary storage
+    images = cloudinary.api.resources(
+                                type="upload", 
+                                prefix="gallerymarie", 
+                                resource_type="image",
+                                max_results=500) 
+    
+    image_urls = [img["secure_url"] for img in images["resources"]]
+
     context = {
-        'image_files': files,
-        'title': 'Under Your Feet'
-    }
-    print(files)
+            "images":  image_urls
+        }
 
     return render(request, "under_your_feet.html", context)
 
