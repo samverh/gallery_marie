@@ -26,5 +26,11 @@
             "src": "/(.*)",
             "dest": "gallery_project/wsgi.py"
         }
-    ]
+    ],
+    "functions": {
+        "api/*": {
+            "runtime": "edge"
+        }
+    }
+    
 }
