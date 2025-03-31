@@ -1,10 +1,11 @@
 /* size of the navigation bar */
 :root {
-  --sidebar-width: 250px;
+  --sidebar-width: 180px;
   --sidebar-items-margin-top: 15%;
   --popup-width: 50%;
-  --navitem-hover-color: rgb(47, 47, 47);
-  --navbar-color: #000000e0;
+  --hamburger-color: rgb(0, 0, 0);
+  --navitem-hover-color: rgb(234, 234, 234);
+  --navbar-color: rgba(246, 202, 202, 0);
 }
 
 .container {
@@ -212,7 +213,7 @@ ul.exhibitions li {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 50%; /* HOVER OVER */
+    width: 100%; /* HOVER OVER */
     /* margin: 0; */
     margin-top: var(--sidebar-items-margin-top);
     padding: 0;
@@ -358,11 +359,11 @@ ul.exhibitions li {
 
 .hamburger {
   position: fixed;
-  top: 20px;  
+  top: 17px;  
   z-index: 999;
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 22px;
   margin-left: 15px;
   background: transparent;
   border: none;
@@ -399,16 +400,17 @@ ul.exhibitions li {
 .hamburger.is-open .hamb-bottom {
   position: absolute;
   left: 0;
-  height: 3px;
+  height: 2px;
   width: 100%;
 }
 .hamburger.is-closed .hamb-top,
 .hamburger.is-closed .hamb-middle,
 .hamburger.is-closed .hamb-bottom {
-  background-color: #1a1a1a;
+  background-color: var(--hamburger-color);
 }
 .hamburger.is-closed .hamb-top { 
   top: 4px; 
+  margin-top: -1px;
   -webkit-transition: all .35s ease-in-out;
 }
 .hamburger.is-closed .hamb-middle {
@@ -442,7 +444,7 @@ ul.exhibitions li {
 .hamburger.is-open .hamb-top,
 .hamburger.is-open .hamb-middle,
 .hamburger.is-open .hamb-bottom {
-  background-color: #1a1a1a;
+  background-color: var(--hamburger-color);
 }
 .hamburger.is-open .hamb-top,
 .hamburger.is-open .hamb-bottom {
@@ -549,5 +551,57 @@ next:hover {
   color: white;
   font-size: 1.25em;
   font-weight: bold;
+}
+
+
+
+
+/* Style for the sidebar navigation */
+#sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  border-color: #e0e0e0;
+  /* Adjusts the top padding */
+}
+
+.nav .typewriter {
+  list-style: none;
+  /* Removes default list styles */
+  padding-left: 0;
+}
+
+.nav .typewriter li {
+  margin-bottom: 10px;
+  /* Space between list items */
+}
+
+.nav .typewriter li a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 12px;
+  padding: 4px 6px;
+  display: block;
+  border-radius: 4px;
+  line-height: 1.2
+}
+
+.nav .typewriter li a:hover {
+  background-color: #e7e7e76d;
+  color: #000000;
+}
+
+/* Style for section titles */
+.section-title {
+  margin: 10px 0;
+  font-size: 12px;
+  color: #000000;
+}
+
+/* Ensure everything is vertically aligned */
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
