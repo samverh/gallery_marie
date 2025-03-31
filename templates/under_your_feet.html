@@ -1,37 +1,73 @@
-{% extends "wrapper.html" %}
+{% extends 'wrapper.html' %}
 
-{% load static %}
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
 
-            <div class="col-8">
-                <section id="gallery" class="py-5">
-                    
-                    <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
-                    <div class="row">
+<div class="row align-items-center">
 
-                        {% for image in images %}
-                            <div class="col-md-6 p-2">
-                                <div class="card border-0" style="border-radius: 0%;">
-                                    <!-- {{ image_file.title }} -->
-                                    <img src="{{ image }}" alt="{{ image.title }}" width="300">
+    <div class="col-xl-1"></div>
+    <div class="col-xl-10">
+        <h3 class="text-left mb-5 font-weight-light">Under Your Feet</h3>
+    </div>
 
-                                    <!-- <img src="images/{{ image_file }}" alt="{{ image_file }}"> -->
-               
-                                </div>
-                            </div>
-                        {% endfor %}
+    <!-- More info -->
+    <div class="col-xl-1">
+        <button id="infoBtn" class="btn btn-floating"><i class="fa fa-info"></i></button>
 
-                    </div>
-                    <br>                    
-                </section>
-            </div> 
-
-            <div class="col-md-2"></div> 
+        <!-- The Popup -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn">&times;</span>
+                <p>
+                    De objecten die ik fotografeer, zijn allemaal dingen die onbedoeld op de straat
+                    terecht zijn gekomen. Ik werk nu ruim 4 jaar aan deze serie en ‘Under Your Feet’
+                    heeft door de jaren heen voor mij alleen maar meer intensiteit hebben gekregen. Ik
+                    heb een handigheid ontwikkeld in het spotten en fotograferen van mooie versies van
+                    hetzelfde: zo heb ik bijvoorbeeld wel vijftien bananenschillen, met ieder hun eigen
+                    karakter.
+                    <br><br>
+                    Het is ook een psychologisch spelletje dat ik met mezelf speel: ik heb eigenlijk
+                    bijna altijd haast, en moet telkens de beslissing maken of het afval dat ik heb
+                    gezien de extra paar minuten vertraging waard is - om terug te gaan om het te
+                    fotograferen. Als het afval het omkeren waard lijkt, móet ik stoppen. Als ik het
+                    niet doe, heb ik spijt. Het zijn kortstondige fossielen en ze kunnen zomaar weg
+                    zijn. Geen van de dingen die ik heb gefotografeerd bestaan nog. Er ontstaat poëzie
+                    waarin het abjecte tot kunst wordt gepromoveerd. ‘Waste’ wordt verheven tot poëzie
+                    door het zien en vastleggen. Het contrast tussen esthetisch en weerzinwekkend vind
+                    ik interessant. Tijdens het maken van werk lijk ik elke keer terug te komen op het
+                    onaangename of zelfsprekende te doorbreken.
+                </p>
+            </div>
         </div>
     </div>
-    
+</div>
+
+<div class="row">
+    <div class="col-xl-1"></div>
+
+    <div class="col-xl-10 col-md-12">
+        <section id="gallery" class="py-5">
+
+            <div class="row" id="image-container">
+                {% for image in images %}
+                    <div class="col-md-6 p-2">
+                        <div class="card border-0" style="border-radius: 0%;">
+                            <img src="{{ image }}" alt="under your feet" width="300" class="img-fluid py-3">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <br>
+        </section>
+    </div>
+
+    <div class="col-xl-1"></div>
+</div>
+
+<button id="backToTopBtn" class="btn btn-floating"><i class="fa fa-arrow-up"></i></button>
+
 {% endblock %}

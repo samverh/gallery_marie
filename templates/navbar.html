@@ -1,0 +1,48 @@
+{% block content %}
+
+<!-- BEGIN NAVBAR -->
+<nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+    <div class="nav">
+
+        <!-- ABOUT -->
+        <!-- <div class="section-title"><u class="typewriter2"><a href="{% url 'index' %}">Home</a></u></div> -->
+
+        <div class="section-title"><u class="typewriter">2D</u></div>
+        <ul class="typewriter">
+            <li><a href="{% url 'posters' %}">Posters</a></li>
+            <li><a href="{% url 'drawings' %}">Drawings</a></li>
+            <li><a href="{% url 'collages' %}">Collages</a></li>
+        </ul>
+
+        <br>
+        <div class="section-title"><u class="typewriter">3D</u></div>
+        <ul class="typewriter">
+            <li><a href="{% url 'poppen' %}">Poppen / dolls</a></li>
+            <li><a href="{% url 'sculptures' %}">Sculptures</a></li>
+        </ul>
+
+        <div class="section-title"><u class="typewriter">Photography</u></div>
+        <ul class="typewriter">
+            <li><a href="{% url 'under_your_feet' %}">Under your feet</a></li>
+            <li><a href="{% url 'state_of_decay' %}">State of decay</a></li>
+            <li><a href="{% url '2d_into_3d' %}">2D into 3D</a></li>
+        </ul>
+
+        <br>
+        <div class="section-title"><u class="typewriter">Film</u></div>
+        <ul class="typewriter">
+            <li><a href="{% url 'seen_to_be_seen' %}">Seen to be Seen</a></li>
+            <li><a href="{% url 'crab' %}">Crab</a></li>
+        </ul>
+
+    </div>
+</nav>
+<!-- END NAVBAR -->
+
+<button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+    <span class="hamb-top"></span>
+    <span class="hamb-middle"></span>
+    <span class="hamb-bottom"></span>
+</button>
+
+{% endblock %}

@@ -1,6 +1,8 @@
 {% extends "wrapper.html" %}
 
-{% load static %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -10,13 +12,13 @@
             <div class="col-8">
                 <section id="gallery" class="py-5">
                     
-                    <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
+                    <h3 class="text-left mb-5 font-weight-light">State of Decay</h3>
                     <div class="row">
                         <h4 class="text-left mb-5 font-weight-light">Bar</h4>
                         {% for image_file in image_files_bar %}
                             <div class="col-md-6 p-2">
                                 <div class="card border-0" style="border-radius: 0%;">
-                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <img src="{{ image_file }}" alt="Bar">
                                     <!-- <div class="card-body bg-light"> -->
                                         <!-- <h6 class="card-title">Item Title</h6> -->
                                     <!-- </div> -->
@@ -34,7 +36,7 @@
                         {% for image_file in image_files_bioscoop %}
                             <div class="col-md-6 p-2">
                                 <div class="card border-0" style="border-radius: 0%;">
-                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <img src="{{ image_file }}" alt="Bioscoop">
                                     <!-- <div class="card-body bg-light"> -->
                                         <!-- <h6 class="card-title">Item Title</h6> -->
                                     <!-- </div> -->

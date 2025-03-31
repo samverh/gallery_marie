@@ -1,34 +1,212 @@
-{% extends "wrapper.html" %}
+{% extends 'wrapper.html' %}
 
-{% load static %}
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
+<div class="row align-items-start">
+    <!-- <div class="col-xl-1"></div> -->
+    <!-- Gallery Marie on the left -->
+    <!-- wrap words -->
+    <div class="col-1">
+        <h3 class="text-left mb-5 font-weight-light">Gallery Marie</h3>
+    </div>
 
-            <div class="col-8">
-                <section id="gallery" class="py-5">
-                    
-                    <h3 class="text-left mb-5">About IM</h3>
-                    <div class="row">
+    <div class="col-lg-11"></div>
 
-                        {% for image in images %}
-                        image
-                        <div>
-                            <!-- <h3>{{ image.title }}</h3> -->
-                            <img src="{{ image }}" alt="{{ image.title }}" width="300">
-                        </div>
-                        {% endfor %}
+    <!-- About on the far right -->
+    <!-- <div class="col-lg-5 d-flex justify-content-end">
+        <h4 class="mb-5 font-weight-light">About</h4>
+    </div> -->
+    <!-- <div class="col-lg-1"></div> -->
+</div>
 
-                    </div>
-                    <br>                    
-                </section>
-            </div> 
 
-            <div class="col-md-2"></div> 
+<!-- CONTENT 1 -->
+<div class="row align-items-start mb-5">
+    <!-- <div class="col-xl-1">
+        <h3 class="text-left mb-5 font-weight-light">Gallery Marie</h3>
+    </div> -->
+    <div class="col-xl-2"></div>
+
+    <div class="col-xl-4">
+
+        <div class="text-right justify-content-end d-flex">
+            <!-- <br><br> -->
+            <h4 class="mb-5 font-weight-light">About</h4>
+        </div>
+        <p style="text-align: justify;">
+            <span class="d-block w-100">
+            I observe the way in which people behave and move in public space. This is either within my
+            direct close
+            environment or with complete strangers. I am drawn to rejected individuals/objects, which are
+            out of place.
+            There can be something wrenching inside of me when I see the disapproval inflicted on them,
+            which I am trying to
+            understand. In order to capture people/objects in the way I see them, in my observations and
+            feelings, I use
+            imagery; e.g. documenting film on interesting characters, photos of squashed objects and
+            grotesque sculptures.
+            The surrounding space reveals the rejection.
+            <br>
+            <br>
+            In my work, I am trying to show a certain contrast or disturbance. I express this via
+            contradiction and
+            repetitiveness. The contrast between light (humourful) and heavy subjects, which balance each
+            other, is
+            illustrated by the use of heavy contrast of light and shadows. Likewise, the contrast between
+            beauty and
+            repulsiveness is highlighted. This balance becomes stronger by showing it in masses, such as a
+            collection of
+            similar photos or in situ installation of sculptures. The focus is on the investigation of
+            relations: between people,
+            between people and objects, or between objects.
+            <br>
+            <br>
+            The focus is on the investigation of relations: between people, between people and objects, or
+            between objects.
+            I try to document how social structures determine our behaviour with film. By playfully using
+            the power of the
+            camera and its perspective, one can challenge the value of the observed truth. In situ
+            installations allow for
+            another truth, one that might be more subjective or personal.
+            <!-- Particularly, in ‘The State of Decay’ project, I
+                                was trying to show the contrast between the beauty of a cinema/bar (environment) and the emptiness in people’s
+                                current life due to corona. Sculpted creatures with a fabricated look are placed in a empty cinema room. I work
+                                out my perception to bring sculptures to life in this lockdown and try to visualise the human state in
+                                fotoseries/videos with sound of this site specific installation. -->
+            </span>
+        </p>
+    </div>
+
+    <!-- FOTO MARIE -->
+    <div class="col-xl-5 ms-4 mb-5" style="margin-top: -20px;">
+        <section style="width: 90%; height: auto;">
+            <img src="{{ marie }}" alt="Marie" class="img-fluid">
+        </section>
+    </div>
+
+
+    <div class="col-xl-1"></div>
+</div>
+
+
+<br><br>
+<hr>
+<!-- <br> -->
+
+<!-- CURRENT WORK -->
+<div class="row align-items-center mb-5" style="margin-top: 15vh;">
+    <div class="col-12 offset-xl-1"> <!-- Moves the content to the center -->
+        <h4 class="text-left mb-5 font-weight-light">Recent Work</h4>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+<div class="container">
+    <div class="row">
+        {% for image in current_work_images %}
+        <div class="col-6 img-container">
+            <div class="card border-0" style="border-radius: 0%;">
+                <a href="{% url image.link %}">
+                    <img src="{{ image.url }}" alt="{{ image.title }}" class="img-fluid py-3 mb-5">
+                </a>
+            </div>
+        </div>
+        <!-- <div class="col-1 spacer"></div> -->
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="row align-items-center position-relative">
+    <div class="col-xl-8 mt-5 offset-xl-8"> <!-- Moves the content to the right half -->
+        <h4 class="text-right font-weight-bold typewriter2">Archive</h4>
+    </div>
+</div>
+
+<div class="row align-items-center">
+
+    <div class="col-xl-1"></div>
+
+    <div class="col-xl-4">
+        <span class="text-left mb-5 font-weight-light typewriter2">Projects</span>
+        <br><br><br>
+        
+        <!-- <div class="col-xl-4 py-5 typewriter font-weight-bold">
+                                Collection of previous projects.
+                            </div> -->
+
+        <div class="row justify-content-start">
+            
+            <div class="col-lg-6 col-5">
+                <div><u class="typewriter">2D</u></div>
+                <ul class="typewriter">
+                    <li><a href="{% url 'posters' %}">Posters</a></li>
+                    <li><a href="{% url 'drawings' %}">Drawings</a></li>
+                    <li><a href="{% url 'collages' %}">Collages</a></li>
+                </ul>
+
+                <br>  
+                <div><u class="typewriter">3D</u></div>
+                <ul class="typewriter">
+                    <li><a href="{% url 'poppen' %}">Poppen / dolls</a></li>
+                    <li><a href="{% url 'sculptures' %}">Sculptures</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-6 ms-auto">
+                <div><u class="typewriter">Photography</u></div>
+                <ul class="typewriter">
+                    <li><a href="{% url 'under_your_feet' %}">Under your feet</a></li>
+                    <li><a href="{% url 'state_of_decay' %}">State of decay</a></li>
+                    <li><a href="{% url '2d_into_3d' %}">2D into 3D</a></li>
+                </ul>
+
+                <br>
+                <div><u class="typewriter">Film</u></div>
+                <ul class="typewriter">
+                    <li><a href="{% url 'seen_to_be_seen' %}">Seen to be Seen</a></li>
+                    <li><a href="{% url 'crab' %}">Crab</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-none col-1"></div>
         </div>
     </div>
-   
+
+    <div class="col-xl-2"></div>
+
+    <div class="col-xl-5">
+
+        <section class="py-5">
+
+            <span class="text-left mb-5 font-weight-bold typewriter2">Exhibitions</span>
+            <br><br>
+            <ul class="exhibitions mt-2 typewriter">
+                <li><a href="{% url 'seen_to_be_seen' %}">Graduation show Gerrit Rietveld Academie (2023) “Seen
+                        to be Seen” with Mette van Dijk (VaV)</a></li>
+                <li><a href="pop_tiftix.html">Tiftix Amsterdam: Christmas showroom etalage “Quiet Family
+                        Dinner” (2021)</a></li>
+                <li>Exhibition of several sculptures "Philosophy Festival Drift" (2021)</li>
+                <li><a href="{% url 'state_of_decay' %}">Filmtheater Kriterion corona exhibition “Staat van
+                        Verval” (2020) with Lieve de Vreede & Nick Ouwehand</a></li>
+                <li><a href="{% url 'state_of_decay' %}">Plan B Project Space summer exhibition “Staat van
+                        Verval” (2020) with Lieve de Vreede & Nick Ouwehand</a></li>
+            </ul>
+
+        </section>
+    </div>
+
+    <!-- <div class="col-xl-1"></div> -->
+
+
+</div>
 
 {% endblock %}

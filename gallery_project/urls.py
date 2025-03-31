@@ -26,12 +26,18 @@ urlpatterns = [
     path('under_your_feet', views.under_your_feet, name="under_your_feet"),
     path('seen_to_be_seen', views.seen_to_be_seen, name="seen_to_be_seen"),
     path('state_of_decay', views.state_of_decay, name="state_of_decay"),
+    path('dimensions', views.dimensions, name="2d_into_3d"),
     path('sculptures', views.sculptures, name="sculptures"),
+    path('drawings', views.drawings, name="drawings"),
     path('collages', views.collages, name="collages"),
     path('posters', views.posters, name="posters"),
-    path('contact', views.contact, name="contact"),
-
+    # path('contact', views.contact, name="contact"),
+    path('hoofden', views.hoofden, name="hoofden"),
+    path('poppen', views.poppen, name="poppen"),
+    path('crab', views.crab, name="crab"),
+    path('poppen', views.poppen, name="poppen"),
 ] 
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
