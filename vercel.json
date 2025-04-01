@@ -19,12 +19,9 @@
     ],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
             "src": "/(.*)",
             "dest": "gallery_project/wsgi.py"
         }
-    ]    
+    ],
+    "outputDirectory": "staticfiles"
 }

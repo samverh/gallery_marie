@@ -28,8 +28,10 @@ $(document).ready(function () {
 
     // js for navbar
     var trigger = $('.hamburger'),
-        overlay = $('.overlay'),
         isClosed = false;
+
+    var navButtonLeft = $('.nav-button-left');
+    var navButtonRight = $('.nav-button-right');
 
     trigger.click(function () {
         hamburger_cross();
@@ -38,27 +40,28 @@ $(document).ready(function () {
     function hamburger_cross() {
 
         if (isClosed == true) {
-            console.log(isClosed)
-            // overlay.hide();
+            navButtonLeft.show();
+            navButtonRight.show();
             trigger.removeClass('is-open');
             trigger.addClass('is-closed');
             isClosed = false;
         } else {
-            console.log(isClosed)
-            // overlay.show();
+            navButtonLeft.hide();
+            navButtonRight.hide();
             trigger.removeClass('is-closed');
             trigger.addClass('is-open');
             isClosed = true;
         }
     }
 
-    // close navbar when clicking outside of it
-    overlay.click(function () {
-        if (!overlay.hasClass('index')) {
+    $(document).on('click', function (e) {
+        // If the click is outside of the hamburger button and the navbar
+        if ($(e.target).closest('#page-content-wrapper').length === 1 && isClosed) {
             hamburger_cross();
             $('#wrapper').toggleClass('toggled');
         }
     });
+
 
     // adds the class "toggled" if it's not present, and removes it if it is already present
     $('[data-toggle="offcanvas"]').click(function () {
@@ -126,3 +129,4 @@ $(document).ready(function () {
     });
 
 });
+

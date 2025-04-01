@@ -1,0 +1,37 @@
+{% extends 'wrapper.html' %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-xl-1">
+
+    </div>
+
+    <div class="col-xl-10 col-md-12">
+        <section id="gallery" class="py-5">
+
+            <div class="image-columns">
+                {% for image in images %}
+                <!-- <div class="col-md-6 p-2"> -->
+                    <!-- <div class="card border-0" style="border-radius: 0%;"> -->
+                        <img src="{{ image }}" alt="Image" width="300" class="img-fluid py-3 px-3">
+                    <!-- </div> -->
+                <!-- </div> -->
+                {% endfor %}
+            </div>
+
+            <br>
+        </section>
+    </div>
+
+    <div class="col-xl-1"></div>
+</div>
+
+<button id="backToTopBtn" class="btn btn-floating"><i class="fa fa-arrow-up"></i></button>
+
+{% endblock %}

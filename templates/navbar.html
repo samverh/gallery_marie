@@ -9,9 +9,9 @@
 
         <div class="section-title"><u class="typewriter">2D</u></div>
         <ul class="typewriter">
-            <li><a href="{% url 'posters' %}">Posters</a></li>
             <li><a href="{% url 'drawings' %}">Drawings</a></li>
             <li><a href="{% url 'collages' %}">Collages</a></li>
+            <li><a href="{% url 'posters' %}">Posters</a></li>
         </ul>
 
         <br>
@@ -39,10 +39,12 @@
 </nav>
 <!-- END NAVBAR -->
 
+<!-- OPEN / CLOSE NAVBAR -->
 <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
     <span class="hamb-top"></span>
     <span class="hamb-middle"></span>
     <span class="hamb-bottom"></span>
 </button>
+
 
 {% endblock %}

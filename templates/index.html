@@ -1,27 +1,12 @@
 {% extends 'wrapper.html' %}
 
+{% load static %}
+
 {% block navbar %}
 {% include 'navbar.html' %}
 {% endblock %}
 
 {% block content %}
-<div class="row align-items-start">
-    <!-- <div class="col-xl-1"></div> -->
-    <!-- Gallery Marie on the left -->
-    <!-- wrap words -->
-    <div class="col-1">
-        <h3 class="text-left mb-5 font-weight-light">Gallery Marie</h3>
-    </div>
-
-    <div class="col-lg-11"></div>
-
-    <!-- About on the far right -->
-    <!-- <div class="col-lg-5 d-flex justify-content-end">
-        <h4 class="mb-5 font-weight-light">About</h4>
-    </div> -->
-    <!-- <div class="col-lg-1"></div> -->
-</div>
-
 
 <!-- CONTENT 1 -->
 <div class="row align-items-start mb-5">
@@ -36,7 +21,7 @@
             <!-- <br><br> -->
             <h4 class="mb-5 font-weight-light">About</h4>
         </div>
-        <p style="text-align: justify;">
+        <p class="mb-5" style="text-align: justify;">
             <span class="d-block w-100">
             I observe the way in which people behave and move in public space. This is either within my
             direct close
@@ -102,27 +87,27 @@
         <h4 class="text-left mb-5 font-weight-light">Recent Work</h4>
     </div>
 </div>
+<br>
 
 <div class="row justify-content-center">
-<div class="container">
-    <div class="row">
-        {% for image in current_work_images %}
-        <div class="col-6 img-container">
-            <div class="card border-0" style="border-radius: 0%;">
-                <a href="{% url image.link %}">
-                    <img src="{{ image.url }}" alt="{{ image.title }}" class="img-fluid py-3 mb-5">
-                </a>
-            </div>
+    <div class="container">
+        <div class="image-columns">
+            {% for image in current_work_images %}
+            <!-- <div class="col-6 img-container"> -->
+                <!-- <div class="card border-0" style="border-radius: 0%;"> -->
+                    <a href="{% url image.link %}">
+                        <img src="{{ image.url }}" alt="{{ image.title }}" class="img-fluid py-1">
+                    </a>
+                <!-- </div> -->
+            <!-- </div> -->
+            <!-- <div class="col-1 spacer"></div> -->
+            {% endfor %}
         </div>
-        <!-- <div class="col-1 spacer"></div> -->
-        {% endfor %}
     </div>
 </div>
 
-</div>
-
 <br>
-<hr>
+<hr style="margin-top: 10vh; margin-bottom: 5vh; ">
 <br>
 
 <div class="row align-items-center position-relative">
@@ -131,11 +116,13 @@
     </div>
 </div>
 
+<!-- <hr> -->
+
 <div class="row align-items-center">
 
-    <div class="col-xl-1"></div>
+    <div class="col-xl-1 col-lg-1 col-md-none"></div>
 
-    <div class="col-xl-4">
+    <div class="col-xl-4 col-lg-5 col-md-5">
         <span class="text-left mb-5 font-weight-light typewriter2">Projects</span>
         <br><br><br>
         
@@ -145,12 +132,12 @@
 
         <div class="row justify-content-start">
             
-            <div class="col-lg-6 col-5">
+            <div class="col-6 col-5">
                 <div><u class="typewriter">2D</u></div>
                 <ul class="typewriter">
-                    <li><a href="{% url 'posters' %}">Posters</a></li>
                     <li><a href="{% url 'drawings' %}">Drawings</a></li>
                     <li><a href="{% url 'collages' %}">Collages</a></li>
+                    <li><a href="{% url 'posters' %}">Posters</a></li>
                 </ul>
 
                 <br>  
@@ -177,13 +164,13 @@
                 </ul>
             </div>
 
-            <div class="col-lg-none col-1"></div>
+            <!-- <div class="col-lg-none col-1"></div> -->
         </div>
     </div>
 
-    <div class="col-xl-2"></div>
+    <div class="col-xl-2 col-lg-1 col-md-2"></div>
 
-    <div class="col-xl-5">
+    <div class="col-xl-5 col-lg-5 col-md-5">
 
         <section class="py-5">
 
@@ -204,7 +191,7 @@
         </section>
     </div>
 
-    <!-- <div class="col-xl-1"></div> -->
+    <!-- <div class="col-xl-none col-lg-1 col-md-none"></div> -->
 
 
 </div>

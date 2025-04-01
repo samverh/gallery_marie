@@ -5,33 +5,86 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container">
+
+        <!-- DANCERS -->
         <div class="row">
-            <div class="col-md-2"></div>
 
-            <div class="col-8">
-                <section id="gallery" class="py-5">
-                    <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
+            <!-- <div class="text-right justify-content-end d-flex">
+                <br><br>
+                <h4 class="mb-5 font-weight-light">Dancers</h4>
+            </div> -->
 
-                    <div class="row">
-
-                        {% for image_file in image_files %}
-                            <div class="col-md-4 p-2">
-                                <div class="card border-0" style="border-radius: 0%;">
-                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
-                                    <!-- <div class="card-body bg-light"> -->
-                                        <!-- <h6 class="card-title">Item Title</h6> -->
-                                    <!-- </div> -->
-                                </div>
-                            </div>
-                        {% endfor %}
-        
+            {% for image in dancers_images %}
+                <div class="col-4 p-1">
+                    <div class="card border-0" style="border-radius: 0%;">
+                        <img src="{{ image }}" alt="Dancers">
                     </div>
-                    
-                </section>
-            </div>
-            <div class="col-md-2"></div>
+                </div>
+            {% endfor %}
 
+        </div>
+
+
+        <!-- DAILY OBJECTS -->
+        <div class="row align-items-center mb-5" style="margin-top: 15vh;">
+            <div class="col-12 offset-xl-1">
+                <h4 class="text-left mb-5 font-weight-light">Daily Objects</h4>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- <div class="text-right justify-content-end d-flex">
+                <br><br>
+                <h4 class="mb-5 mt-5 font-weight-light">Daily Objects</h4>
+            </div> -->
+
+            <div class="col-1"></div>
+        
+            <div class="col-10">
+                <div class="row">
+                    {% for image in daily_images %}
+                    <div class="col-4 p-3">
+                        <div class="card border-0" style="border-radius: 0%;">
+                            <img src="{{ image }}" alt="Daily">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-1"></div>
+        
+        </div>
+
+
+        <!-- MAGAZINE -->
+        <div class="row align-items-center mb-5" style="margin-top: 15vh;">
+            <div class="col-12 offset-xl-1">
+                <h4 class="text-left mb-5 font-weight-light">Magazine</h4>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-1"></div>
+        
+            <div class="col-10">
+                <div class="row">
+                    {% for image in extra_images %}
+                    <div class="col-md-6 py-3">
+                        <div class="card border-0" style="border-radius: 0%;">
+                            <img src="{{ image }}" alt="Daily">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="col-1"></div>
+        
         </div>
     </div>
 {% endblock %}

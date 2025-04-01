@@ -15,10 +15,10 @@
                     <h3 class="text-left mb-5 font-weight-light">{{ title }}</h3>
                     <div class="row">
 
-                        {% for image_file in image_files %}
+                        {% for image_file in image_urls %}
                             <div class="col-md-6 p-2">
                                 <div class="card border-0" style="border-radius: 0%;">
-                                    <img src="{{ image_file.photo.url }}" alt="{{ image_file }}">
+                                    <img src="{{ image_file }}" alt="">
                                     <!-- <div class="card-body bg-light"> -->
                                         <!-- <h6 class="card-title">Item Title</h6> -->
                                     <!-- </div> -->
