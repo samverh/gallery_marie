@@ -8,6 +8,16 @@
   --navbar-color: rgba(246, 202, 202, 0);
 }
 
+hr {
+  height: 0.5px;
+}
+
+/* dont show on mobile */
+@media (max-width: 768px) {
+  hr {
+    display: none;
+  }
+}
 
 /*-------------------------------*/
 /*           Fonts               */
@@ -158,12 +168,12 @@ ul.exhibitions li {
 #infoBtn {
   display: flex;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   border: none;
-  background: #e0e0e0;
+  background: #00000000;
   border-radius: 50%;
-  color: white; /* Color of the arrow icon */
+  color: #474747; /* Color of the arrow icon */
   text-decoration: none;
 }
 

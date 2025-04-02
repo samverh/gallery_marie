@@ -10,12 +10,12 @@
 
     <div class="col-xl-1"></div>
     <div class="col-xl-10">
-        <h3 class="text-left mb-5 font-weight-light">Under Your Feet</h3>
+        <!-- <h3 class="text-left mb-5 font-weight-light">Under Your Feet</h3> -->
     </div>
 
     <!-- More info -->
     <div class="col-xl-1">
-        <button id="infoBtn" class="btn btn-floating"><i class="fa fa-info"></i></button>
+        <button id="infoBtn" class="btn btn-floating"><i class="bi bi-info-circle"></i></button>
 
         <!-- The Popup -->
         <div id="popup" class="popup">
@@ -53,7 +53,7 @@
 
             <div class="row" id="image-container">
                 {% for image in images %}
-                    <div class="col-md-6 p-2">
+                    <div class="col-6 p-2">
                         <div class="card border-0" style="border-radius: 0%;">
                             <img src="{{ image }}" alt="under your feet" width="300" class="img-fluid py-3">
                         </div>
@@ -68,6 +68,6 @@
     <div class="col-xl-1"></div>
 </div>
 
-<button id="backToTopBtn" class="btn btn-floating"><i class="fa fa-arrow-up"></i></button>
+<button id="backToTopBtn" class="btn btn-floating"><i class="bi bi-caret-up"></i></button>
 
 {% endblock %}

@@ -130,3 +130,35 @@ $(document).ready(function () {
 
 });
 
+// swiping navigation on mobile
+document.addEventListener("DOMContentLoaded", function () {
+    let leftNav = document.querySelector(".nav-button-left");
+    let rightNav = document.querySelector(".nav-button-right");
+
+    // only add swipe functionality if at least one nav button exists
+    if (!leftNav && !rightNav) {
+        return;
+    }
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleGesture() {
+        if (rightNav && touchStartX - touchEndX > 50) {
+            // Swiped left, go to right_nav
+            window.location.href = rightNav.href;
+        } else if (leftNav && touchEndX - touchStartX > 50) {
+            // Swiped right, go to left_nav
+            window.location.href = leftNav.href;
+        }
+    }
+
+    document.addEventListener("touchstart", function (event) {
+        touchStartX = event.changedTouches[0].screenX;
+    });
+
+    document.addEventListener("touchend", function (event) {
+        touchEndX = event.changedTouches[0].screenX;
+        handleGesture();
+    });
+});

@@ -10,20 +10,21 @@
 
         <!-- DANCERS -->
         <div class="row">
-
             <!-- <div class="text-right justify-content-end d-flex">
                 <br><br>
                 <h4 class="mb-5 font-weight-light">Dancers</h4>
             </div> -->
-
-            {% for image in dancers_images %}
-                <div class="col-4 p-1">
-                    <div class="card border-0" style="border-radius: 0%;">
-                        <img src="{{ image }}" alt="Dancers">
-                    </div>
-                </div>
-            {% endfor %}
-
+            <div class="col-lg-10 col-md-12 mx-auto">
+                <div class="row">
+                    {% for image in dancers_images %}
+                        <div class="col-4 py-1">
+                            <div class="card border-0" style="border-radius: 0%;">
+                                <img src="{{ image }}" alt="Dancers">
+                            </div>
+                        </div>
+                    {% endfor %}
+              </div>
+            </div>
         </div>
 
 
@@ -35,15 +36,12 @@
         </div>
 
         <div class="row">
-
             <!-- <div class="text-right justify-content-end d-flex">
                 <br><br>
                 <h4 class="mb-5 mt-5 font-weight-light">Daily Objects</h4>
             </div> -->
 
-            <div class="col-1"></div>
-        
-            <div class="col-10">
+            <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="row">
                     {% for image in daily_images %}
                     <div class="col-4 p-3">
@@ -53,10 +51,7 @@
                     </div>
                     {% endfor %}
                 </div>
-            </div>
-
-            <div class="col-1"></div>
-        
+            </div>   
         </div>
 
 
@@ -67,24 +62,21 @@
             </div>
         </div>
 
-        <div class="row">
-
-            <div class="col-1"></div>
-        
-            <div class="col-10">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10 col-md-12">
                 <div class="row">
                     {% for image in extra_images %}
-                    <div class="col-md-6 py-3">
-                        <div class="card border-0" style="border-radius: 0%;">
-                            <img src="{{ image }}" alt="Daily">
+                    <div class="col-md-6 py-2">
+                        <div class="card border-0">
+                            <img src="{{ image }}" alt="Image {{ loop.index }}" class="img-fluid">
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-            </div>
-        
-            <div class="col-1"></div>
-        
+            <!-- </div> -->
         </div>
     </div>
+
+    <button id="backToTopBtn" class="btn btn-floating"><i class="bi bi-caret-up"></i></button>
+
 {% endblock %}

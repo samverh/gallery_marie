@@ -7,6 +7,7 @@ import os
 
 
 NAVIGATION_ROUTES = [
+    "index",
     "drawings",
     "collages",
     "posters",
@@ -15,6 +16,7 @@ NAVIGATION_ROUTES = [
     "under_your_feet",
     "state_of_decay",
     "2d_into_3d",
+    "hoofden",
     "seen_to_be_seen",
     "crab"
 ]
@@ -61,7 +63,12 @@ def index(request):
                 current_work_images.append(data)  # get image URL
     # print(current_work_images)
 
+    # get navigation
+    left_nav, right_nav = get_navigation_links("index")
+
     context = {
+        "left_nav": left_nav,
+        "right_nav": right_nav,
         "marie":  marie_image,
         "current_work_images": current_work_images
     }
@@ -86,6 +93,7 @@ def under_your_feet(request):
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
+        "title": "Under Your Feet",
         "images":  image_urls
     }
 
@@ -204,7 +212,7 @@ def state_of_decay(request):
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
-            "title": "State of decay",
+            "title": "State of Decay",
             "kriterion_image": kriterion_image,
             "poster_image": poster_image,
             "main_image": main_image,
@@ -300,7 +308,7 @@ def crab(request):
         "left_nav": left_nav,
         "right_nav": right_nav,
         'image_files': files,
-        'title': 'crab'
+        'title': 'Crab'
     }
 
     return render(request, "image_columns.html", context)
@@ -315,7 +323,7 @@ def posters(request):
                                 resource_type="image",
                                 max_results=500) 
     
-    image_urls = [img["secure_url"] for img in images["resources"]]
+    image_urls = [img["secure_url"] for img in images["resources"] if not "original_size/" in str(img)]
 
     # get navigation
     left_nav, right_nav = get_navigation_links("posters")
