@@ -27,18 +27,19 @@
 
         <!-- NAV BUTTONS -->
         {% if left_nav %}
-            <a href="{% url left_nav %}" class="nav-button-left">
-                &lt;
-                <!-- <i class="bi bi-caret-left"></i> -->
-            </a>
+        <a href="{% url left_nav %}" class="nav-button nav-button-left">
+            <span class="nav-text">&lt;</span>
+            <span class="tooltip-text top-left">More projects</span>
+        </a>
+        {% endif %}
+        
+        {% if right_nav %}
+        <a href="{% url right_nav %}" class="nav-button nav-button-right">
+            <span class="nav-text">&gt;</span>
+            <span class="tooltip-text top-right">More projects</span>
+        </a>
         {% endif %}
 
-        {% if right_nav %}
-            <a href="{% url right_nav %}" class="nav-button-right">
-                &gt;
-                <!-- <i class="bi bi-caret-right"></i> -->
-            </a>
-        {% endif %}
 
         <div id="wrapper">
             
@@ -54,8 +55,13 @@
                     <div class="row align-items-center">
                     
                         <div class="col-xl-1">
-                            <h3 class="text-left font-weight-light"><a href="{% url 'index' %}"
-                                    style="text-decoration: none; color: inherit;">Gallery Marie</a></h3>
+                            <h3 class="text-left font-weight-light">
+                                <a href="{% url 'index' %}" style="text-decoration: none; color: inherit;" data-tooltip="Home">
+                                    Gallery Marie
+                                    <span class="tooltip-text">Home</span>
+                                </a>
+                            </h3>
+                                    
                         </div>
                     
                     </div>
@@ -78,24 +84,44 @@
                     <!-- FOOTER -->
                     <br><br>
                     
-                    <footer class="align-items-center justify-centent-center mb-4 mt-5" style="text-align: center;">
-                        <hr style="width: 80%; margin: auto;" class="mb-5">
+                    <footer class="align-items-center justify-centent-center mt-5" style="text-align: center;">
+                        <!-- <hr style="width: 80%; margin: auto;" class="mb-5"> -->
                         <div>  
                             <!-- <br><br> -->
 
                             <!-- mail -->
-                            <a href="mailto:marievreede@gmail.com"
+                            <!-- <a href="mailto:marievreede@gmail.com"
                                 style="color:#1651da; vertical-align: middle; margin-top: 5px; text-decoration: none;">
                                 <i class="bi bi-envelope"></i>
+                            </a> -->
+                            <!-- &nbsp; <span>marievreede@gmail.com</span> -->
+
+                            <!-- <a href="mailto:marievreede@gmail.com"
+                                style="font-size: 0.9em;color: rgba(0, 0, 0, 1); vertical-align: middle; margin-top: 5px; text-decoration: none;">
+                                marievreede@gmail.com
                             </a>
-                            &nbsp;<span>marievreede@gmail.com</span>
+                            <br> -->
+                            <a href="mailto:marievreede@gmail.com"
+                                style="color:#1651da; vertical-align: top; margin-top: 5px; text-decoration: none;">
+                                <i class="bi bi-envelope"></i>
+                            </a>
+                            <!-- <br> -->
+                            
 
                             <br>
 
                             <!-- copyright -->
-                            <span style="font-size: 0.9em;">Marie de Vreede &copy;
-                                <script>document.write(new Date().getFullYear());</script>. All rights reserved.
+                            <span style="font-size: 0.81em; color: rgba(0, 0, 0, 1)">marie de vreede &copy;
+                                <script>document.write(new Date().getFullYear());</script> all rights reserved
                             </span>
+                            <br>
+
+                            <!-- website -->
+                            <span style="font-size: 0.81em; color: rgba(0, 0, 0, 1)">website by
+                            <a href="mailto:samverhezen@gmail.com" style="color: rgba(0, 0, 0, 0.5); text-decoration: none;">
+                                s.v.
+                            </a>
+                        </span>
                             
                         </div>
                     </footer>

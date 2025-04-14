@@ -162,3 +162,23 @@ document.addEventListener("DOMContentLoaded", function () {
         handleGesture();
     });
 });
+
+// tooltip mouse pointer
+document.addEventListener("DOMContentLoaded", function () {
+    const tooltip = document.createElement("div");
+    tooltip.className = "image-tooltip";
+    document.body.appendChild(tooltip);
+
+    document.querySelectorAll(".image-wrapper").forEach(wrapper => {
+        wrapper.addEventListener("mousemove", function (event) {
+            tooltip.innerText = this.getAttribute("data-tooltip");
+            tooltip.style.left = event.pageX + 10 + "px";  // Offset to the right
+            tooltip.style.top = event.pageY + 10 + "px";   // Offset slightly below
+            tooltip.style.opacity = 1;
+        });
+
+        wrapper.addEventListener("mouseleave", function () {
+            tooltip.style.opacity = 0;
+        });
+    });
+});

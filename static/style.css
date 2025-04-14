@@ -5,6 +5,7 @@
   --popup-width: 50%;
   --hamburger-color: rgb(0, 0, 0);
   --navitem-hover-color: rgb(234, 234, 234);
+  --text-hover-color: rgb(108, 108, 108);
   --navbar-color: rgba(246, 202, 202, 0);
 }
 
@@ -12,16 +13,96 @@ hr {
   height: 0.5px;
 }
 
-/* dont show on mobile */
+/* mobile: don't show lines */
 @media (max-width: 768px) {
   hr {
     display: none;
   }
 }
 
+/* mobile and medium screens */
+@media (max-width: 1400px) {
+  hr .mdnone {
+    display: none;
+  }
+
+  #intro-text {
+    font-size: 12px !important;
+    font-family: Futura Light;
+    font-weight: 300;
+  }
+}
+
+#intro-text {
+  font-family: Futura Book Regular;
+  font-weight: 300;
+}
+
+.smallhr {
+  /* display: none; */
+  width: 30%;
+  margin: 0 auto;
+}
+
+
+.vertical-text {
+  writing-mode: vertical-rl; /* Makes the text vertical */
+  /* text-orientation: upright; *//* Keeps letters upright */
+  text-orientation: sideways; /* Rotates the letters */
+  transform: rotate(180deg);
+  direction: rtl;
+  /* margin-right: 20px; */
+}
+
+.vertical-line {
+  transform: rotate(90deg); /* Rotates the <hr> element 90 degrees to make it vertical */
+  transform-origin: left center; /* Ensures the line rotates correctly */
+  background-color: black; /* Line color */
+  direction: rtl;
+  width: 700px;
+  height: 0.5px;
+  margin-top: -285px;
+    /* Adds some spacing at the top */
+  margin-left: 90px;
+    /* Adds spacing between the line and the text */
+}
+
+.vertical-text-right {
+  writing-mode: vertical-lr;
+  text-orientation: sideways;
+  transform: scaleX(-1);
+  /* mirrors the text vertically */
+  direction: rtl;
+}
+
+.vertical-line-right {
+  transform: rotate(90deg);
+  /* Rotates the <hr> element 90 degrees to make it vertical */
+  transform-origin: left center;
+  /* Ensures the line rotates correctly */
+  background-color: black;
+  /* Line color */
+  direction: ltr;
+  width: 500px;
+  height: 0.5px;
+  margin-top: -330px;
+  /* Adds some spacing at the top */
+  margin-left: -4px;
+  /* Adds spacing between the line and the text */
+}
+
 /*-------------------------------*/
 /*           Fonts               */
 /*-------------------------------*/
+
+@font-face {
+  font-family: 'Futura Book';
+  src: url('/static/font/FuturaBook.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Futura Book Regular';
+  src: url('/static/font/futurabook/FuturaBook.ttf') format('truetype');
+}
 
 .typewriter {
   /* font-family: "Special Elite", monospace; */
@@ -30,8 +111,8 @@ hr {
 }
 
 .typewriter li {
-  margin-bottom: 10px;
-  font-size: 0.92em;
+  /* margin-bottom: 10px; */
+  font-size: 0.90em;
 }
 
 .typewriter li a {
@@ -48,10 +129,28 @@ hr {
   /* list-style: none; */
 }
 
-@font-face {
-  font-family: 'Futura Book';
-  src: url('/static/font/FuturaBook.otf') format('truetype');
+u .typewriter {
+  display: inline-block;
+  /* Ensures margin works properly */
+  margin-bottom: 15px;
+  /* Adjust the space as needed */
 }
+
+ul li {
+  /* display: inline-block; */
+  /* Ensures margin works properly */
+  margin-bottom: 1px;
+  padding: 0;
+  margin: 0;
+  /* Adjust the space as needed */
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  /* Adjust the space between items */
+}
+
 
 body {
   position: relative;
@@ -85,6 +184,31 @@ h4 {
 footer {
   font-family: "Futura Light" !important;
   font-weight: 400;
+}
+
+/*-------------------------------*/
+/*           Index               */
+/*-------------------------------*/
+
+#index-nav u.typewriter {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+#index-nav li {
+  margin-bottom: 6px;
+}
+
+#index-nav li:hover {
+  color: var(--text-hover-color);
+}
+
+ul.exhibitions li {
+  padding-bottom: 10px;
+}
+
+ul.exhibitions li:hover {
+  color: var(--text-hover-color);
 }
 
 /*-------------------------------*/
@@ -148,21 +272,24 @@ html { height: 100%;}
 .nav .open > a:hover, 
 .nav .open > a:focus {background-color: transparent;}
 
-ul.exhibitions li {
-  padding-bottom: 10px; /* Adjust the value as needed */
-}
 
 #backToTopBtn {
   display: none;
   position: fixed;
   bottom: 20px;
   right: 20px;
+  font-size: 1.2rem;
   border: none;
-  background: #e0e0e0;
+  background: transparent;
   border-radius: 50%;
   /* font-size: 24px; */
-  color: white; /* Color of the arrow icon */
+  color: rgb(0, 0, 0); /* Color of the arrow icon */
   text-decoration: none;
+  /* transition: transform 0.3s ease, color 0.3s ease; */
+}
+#backToTopBtn:hover {
+  transform: scale(1.5);
+  color: var(--navitem-hover-color);
 }
 
 #infoBtn {
@@ -607,15 +734,12 @@ next:hover {
   padding-left: 0;
 }
 
-.nav .typewriter li {
-  margin-bottom: 10px;
-  /* Space between list items */
-}
 
 .nav .typewriter li a {
   text-decoration: none;
   color: #000000;
-  font-size: 12px;
+  /* font-size: 12px; */
+  font-size: 0.68rem; /* NAVITEM */
   padding: 4px 6px;
   display: block;
   border-radius: 4px;
@@ -665,20 +789,23 @@ next:hover {
 /*         Nav Left Right Buttons           */
 /*-------------------------------*/
 
-.nav-button-left,
-.nav-button-right {
-  font-family: 'Courier New', Courier, monospace;
+.nav-button {
+  font-family: "Courier New", Courier, monospace;
   font-weight: 500;
   position: fixed;
   top: 50%;
-  transform: translateY(-50%) scaleY(2.1);
-
+  transform: translateY(-50%);
   font-size: 2rem;
   text-decoration: none;
   z-index: 1000;
-
   background-color: transparent;
   color: black;
+}
+
+/* Only scale the text inside the button */
+.nav-text {
+  display: inline-block;
+  transform: scaleY(2.1);
 }
 
 .nav-button-left {
@@ -719,6 +846,65 @@ next:hover {
   }
 }
 
+/*-------------------------------*/
+/*           Tooltips            */
+/*-------------------------------*/
+.tooltip-text {
+  font-size: 12px;
+  visibility: hidden;
+  background-color: var(--navitem-hover-color);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Top-Left Tooltip */
+.nav-button .tooltip-text.top-left {
+  bottom: 100%;
+  /* Moves it above the button */
+  left: 0;
+  /* Aligns to left */
+  transform: translateY(-5px);
+}
+
+/* Top-Right Tooltip */
+.nav-button .tooltip-text.top-right {
+  bottom: 100%;
+  /* Moves it above the button */
+  right: 0;
+  /* Aligns to right */
+  transform: translateY(-5px);
+}
+
+/* Show tooltip on hover */
+.nav-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Default tooltip styling */
+.image-tooltip {
+  font-family: "Courier New", Courier, monospace;
+  /* font-family: Futura Book; */
+  position: absolute;
+  background-color: var(--navitem-hover-color);
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  /* Prevents interference with other elements */
+  transition: opacity 0.1s ease-in-out;
+  z-index: 1000;
+}
 
 /*-------------------------------*/
 /*        Image columns          */
@@ -734,5 +920,118 @@ next:hover {
   width: 100%;
   display: block;
   margin-bottom: 10px;
-  /* slight overlap */
 }
+
+/* .image-columns {
+  display: flex;
+  gap: 20px;
+  height: 100vh;
+}
+
+.image-columns-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-columns-column img {
+  flex: 1;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 10px;
+} */
+
+
+/*-------------------------------*/
+/*        Carousel               */
+/*-------------------------------*/
+.white-gradient {
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-250px * 7));
+    /* Adjust the translateX value to match the number of images you have */
+  }
+}
+
+.slider {
+  background: transparent;
+  /* box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125); */
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  height: 90%;
+  width: 100%;
+}
+
+.slider::before,
+.slider::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  content: "";
+  position: absolute;
+  height: 100%;
+  width:5px;
+  z-index: 2;
+}
+
+.slider::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+
+.slider::before {
+  left: 0;
+  top: 0;
+}
+
+.slide-track {
+  animation: scroll 80s linear infinite;
+  display: flex;
+  width: calc(250px * 14);
+  /* Number of images in one loop, update as necessary */
+}
+
+.slide {
+  position: relative;
+  /* height: 200px; */
+  /* Fixed height for uniformity */
+  /* width: 600px; */
+  margin-right: 20px;
+  /* Add spacing between images */
+}
+
+.slide img {
+  width: 100%;
+  /* Make the image responsive */
+  height: 600px;
+  /* Fixed height for uniformity */
+  object-fit: cover;
+  /* Maintain aspect ratio and cover the area */
+  /* border-radius: 11px; */
+  /* Optional: Add rounded corners for aesthetics */
+}
+
+/* Add additional slides by repeating the same images */
+.slide-track .slide:nth-child(n+8) {
+  margin-left: 20px;
+  /* Ensure no gap between the repeated images */
+}
+/*-------------------------------*/
+/*        Image columns          */
+/*-------------------------------*/
+
+/*-------------------------------*/
+/*        Image columns          */
+/*-------------------------------*/
+
+
+/*-------------------------------*/
+/*        Image columns          */
+/*-------------------------------*/

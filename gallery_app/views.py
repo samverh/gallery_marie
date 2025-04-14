@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Image
 import cloudinary.api
 from cloudinary.api import resources_by_tag
+from django.core.cache import cache
 import os
 
 
@@ -21,6 +22,9 @@ NAVIGATION_ROUTES = [
     "crab"
 ]
 
+# set a global cache timeout (e.g., 1 hour)
+cache_timeout = 3600 * 24  # seconds
+
 
 def get_navigation_links(current_route):
     index = NAVIGATION_ROUTES.index(current_route)
@@ -33,35 +37,64 @@ def get_navigation_links(current_route):
 
 def index(request):
 
-    # fetch image details by public_id
-    image_data = cloudinary.api.resource("marie")
+    # if not cached, fetch from Cloudinary and cache the results
+    marie_image = cache.get("marie_image")
+    if marie_image is None:
 
-    # get the URL of the image
-    marie_image = image_data["secure_url"]
+        # fetch image details by public_id
+        image_data = cloudinary.api.resource("marie")
+        
 
-    current_work_folders = {"hoofden": "hoofden", 
-                            "state_of_decay-bar": "state_of_decay", 
-                            "state_of_decay-bioscoop": "state_of_decay", 
-                            "under_your_feet": "under_your_feet", 
-                            "gallerymarie": "under_your_feet", 
-                            "current_work": "under_your_feet",
-                            "project pop/pop fashion": "poppen"}
-    current_work_images = []
+        # get the URL of the image
+        marie_image = image_data["secure_url"]
+        cache.set("marie_image", marie_image, cache_timeout)
 
-    for folder in current_work_folders.keys():
+    # if not cached, fetch from Cloudinary and cache the results
+    recent_work_images = cache.get("recent_work_images")
+    if recent_work_images is None:
 
-        # fetch all images in the folder
-        response = cloudinary.api.resources(type="upload", prefix=folder + "/")
+        recent_work_folders = {
+            "state_of_decay-bar": {"route": "state_of_decay", "text": "State of decay"}, 
+            "state_of_decay-bioscoop": {"route": "state_of_decay", "text": "State of decay"}, 
+            "current_work": {"route": "under_your_feet", "text": "Under your feet"},
+            "project pop/pop fashion": {"route": "poppen", "text": "Poppen / dolls"},
+            # "hoofden": {"route": "hoofden", "text": "Hoofden"}
+        }
+        recent_work_images = []
+
+        for folder in recent_work_folders.keys():
+
+            # fetch all images in the folder
+            response = cloudinary.api.resources(type="upload", prefix=folder + "/")
+
+            # filter images where public_id ends with 'main'
+            for resource in response.get("resources", []):
+                print(resource["public_id"])
+                if resource["public_id"].endswith("main") or resource["public_id"].endswith("himfxttehwldszteybyj") or folder == "current_work":  # exact match for 'main'
+                    data = {}
+                    data["title"] = folder.split("-")[0]
+                    data["url"] = resource["secure_url"]
+                    data["route"] = recent_work_folders[folder]["route"]
+                    data["tooltip"] = recent_work_folders[folder]["text"]
+                    recent_work_images.append(data)  # get image URL
+
+    # if not cached, fetch from Cloudinary and cache the results
+    current_work_images = cache.get("current_work_images")
+    if current_work_images is None:
+
+        # fetch all images in the 'hoofden' folder
+        response = cloudinary.api.resources(type="upload", prefix="hoofden/", max_results=50)
+        current_work_images = []
 
         # filter images where public_id ends with 'main'
         for resource in response.get("resources", []):
-            if resource["public_id"].endswith("main") or folder == "current_work":  # exact match for 'main'
-                data = {}
-                data["title"] = folder.split("-")[0]
-                data["url"] = resource["secure_url"]
-                data["link"] = current_work_folders[folder]
-                current_work_images.append(data)  # get image URL
-    # print(current_work_images)
+            if resource["public_id"].endswith("main"):
+                current_work_images.append(resource["secure_url"])
+                
+        # cache the results      
+        cache.set("current_work_images", current_work_images, cache_timeout)
+
+        # print(current_work_images)
 
     # get navigation
     left_nav, right_nav = get_navigation_links("index")
@@ -69,26 +102,37 @@ def index(request):
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
-        "marie":  marie_image,
-        "current_work_images": current_work_images
+        "marie": marie_image,
+        "current_work_images": current_work_images,
+        "recent_work_images": recent_work_images
     }
 
     return render(request, "index.html", context)
 
 
+
 def under_your_feet(request):
 
-    # get images from cloudinary storage
-    images = cloudinary.api.resources(
-                                type="upload", 
-                                prefix="under_your_feet", 
-                                resource_type="image",
-                                max_results=500) 
-    
-    image_urls = [img["secure_url"] for img in images["resources"]]
+    route = "under_your_feet"
+
+    # try to get images from cache
+    image_urls = cache.get(route)
+
+    # fetch images from Cloudinary only if not in cache
+    if not image_urls:
+        images = cloudinary.api.resources(
+            type="upload",
+            prefix=route,
+            resource_type="image",
+            max_results=500
+        )
+        image_urls = [img["secure_url"] for img in images["resources"]]
+
+        # store the image URLs in cache
+        cache.set(route, image_urls, timeout=cache_timeout)
 
     # get navigation
-    left_nav, right_nav = get_navigation_links("under_your_feet")
+    left_nav, right_nav = get_navigation_links(route)
 
     context = {
         "left_nav": left_nav,
@@ -197,7 +241,7 @@ def state_of_decay(request):
     kriterion_image = kriterion_image["secure_url"]
 
     main_image = cloudinary.api.resource(type="upload", 
-                                public_id="state_of_decay-bar/main", 
+                                public_id="state_of_decay-bar/fam", 
                                 resource_type="image")
     main_image = main_image["secure_url"]
 
@@ -225,72 +269,104 @@ def state_of_decay(request):
 
 def sculptures(request):
 
-    # get images from cloudinary storage
-    images = cloudinary.api.resources(
-                                type="upload", 
-                                prefix="sculptures", 
-                                resource_type="image",
-                                max_results=500) 
-    
-    image_urls = [img["secure_url"] for img in images["resources"]]
+    route = "sculptures"
+
+    # try to get images from cache
+    image_urls = cache.get(route)
+
+    # fetch images from Cloudinary only if not in cache
+    if not image_urls:
+        images = cloudinary.api.resources(
+            type="upload",
+            prefix=route,
+            resource_type="image",
+            max_results=500
+        )
+        image_urls = [img["secure_url"] for img in images["resources"]]
+
+        # store the image URLs in cache
+        cache.set(route, image_urls, timeout=cache_timeout)
 
     # get navigation
-    left_nav, right_nav = get_navigation_links("sculptures")
+    left_nav, right_nav = get_navigation_links(route)
 
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
         "title": "Sculptures",
-        "images":  image_urls
+        "images": image_urls
     }
+    
     return render(request, "image_columns.html", context)
 
 
 def dimensions(request):
 
-    # get images from cloudinary storage
-    images = cloudinary.api.resources(
-                                type="upload", 
-                                prefix="2d_into_3d", 
-                                resource_type="image",
-                                max_results=500) 
-    
-    image_urls = [img["secure_url"] for img in images["resources"]]
+    route = "2d_into_3d"
+
+    # try to get images from cache
+    image_urls = cache.get(route)
+
+    # fetch images from Cloudinary only if not in cache
+    if not image_urls:
+        images = cloudinary.api.resources(
+            type="upload",
+            prefix=route,
+            resource_type="image",
+            max_results=500
+        )
+        image_urls = [img["secure_url"] for img in images["resources"]]
+
+        # store the image URLs in cache
+        cache.set(route, image_urls, timeout=cache_timeout)
 
     # get navigation
-    left_nav, right_nav = get_navigation_links("2d_into_3d")
+    left_nav, right_nav = get_navigation_links(route)
 
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
-        "title": "2D into 3D",
-        "images":  image_urls
+        "title": "2D Into 3D",
+        "images": image_urls
     }
-
+    
     return render(request, "image_columns.html", context)
 
 
 def drawings(request):
+    route = "drawings"
+    cache_key_drawings = "drawings"
+    cache_key_squareheads = "squareheads"
 
-    # get images from cloudinary storage
-    images = cloudinary.api.resources(
-                                type="upload", 
-                                prefix="2d", 
-                                resource_type="image",
-                                max_results=500) 
-    
-    drawings_images = [img["secure_url"] for img in images["resources"] if "2d/drawings" in img["public_id"]]
-    squareheads_images = [img["secure_url"] for img in images["resources"] if "2d/squareheads" in img["public_id"]]
+    # try to get images from cache
+    drawings_images = cache.get(cache_key_drawings)
+    squareheads_images = cache.get(cache_key_squareheads)
+
+    # fetch images from Cloudinary only if not in cache
+    if not drawings_images or not squareheads_images:
+        images = cloudinary.api.resources(
+            type="upload",
+            prefix="2d",
+            resource_type="image",
+            max_results=500
+        )
+
+        drawings_images = [img["secure_url"] for img in images["resources"] if f"2d/{cache_key_drawings}" in img["public_id"]]
+        squareheads_images = [img["secure_url"] for img in images["resources"] if f"2d/{cache_key_squareheads}" in img["public_id"]]
+
+        # store the image URLs in cache
+        cache.set(cache_key_drawings, drawings_images, timeout=cache_timeout)
+        cache.set(cache_key_squareheads, squareheads_images, timeout=cache_timeout)
 
     # get navigation
-    left_nav, right_nav = get_navigation_links("drawings")
+    left_nav, right_nav = get_navigation_links(route)
 
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
         "title": "Paper Drawings",
         "drawings_images": drawings_images,
-        "squareheads_images":  squareheads_images
+        "squareheads_images": squareheads_images
     }
 
     return render(request, "drawings.html", context)
@@ -316,27 +392,35 @@ def crab(request):
 
 def posters(request):
 
-    # get images from cloudinary storage
-    images = cloudinary.api.resources(
-                                type="upload", 
-                                prefix="posters", 
-                                resource_type="image",
-                                max_results=500) 
-    
-    image_urls = [img["secure_url"] for img in images["resources"] if not "original_size/" in str(img)]
+    route = "posters"
+
+    # try to get images from cache
+    image_urls = cache.get(route)
+
+    # fetch images from Cloudinary only if not in cache
+    if not image_urls:
+        images = cloudinary.api.resources(
+            type="upload",
+            prefix=route,
+            resource_type="image",
+            max_results=500
+        )
+        image_urls = [img["secure_url"] for img in images["resources"] if not "original_size/" in str(img)]
+
+        # store the image URLs in cache
+        cache.set(route, image_urls, timeout=cache_timeout)
 
     # get navigation
-    left_nav, right_nav = get_navigation_links("posters")
+    left_nav, right_nav = get_navigation_links(route)
 
     context = {
         "left_nav": left_nav,
-        "right_nav": right_nav,        
+        "right_nav": right_nav,
         "title": "Posters",
-        "images":  image_urls
+        "images": image_urls
     }
-
+    
     return render(request, "posters.html", context)
-
 
 
 def collages(request):
