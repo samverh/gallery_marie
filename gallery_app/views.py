@@ -54,23 +54,28 @@ def index(request):
     if recent_work_images is None:
 
         recent_work_folders = {
-            "state_of_decay-bar": {"route": "state_of_decay", "text": "State of decay"}, 
-            "state_of_decay-bioscoop": {"route": "state_of_decay", "text": "State of decay"}, 
-            "current_work": {"route": "under_your_feet", "text": "Under your feet"},
+            "state_of_decay-bar": {"route": "state_of_decay", "text": "Staat van Verval"}, 
+            "state_of_decay-bioscoop": {"route": "state_of_decay", "text": "Staat van Verval"}, 
+            "current_work": {"route": "under_your_feet", "text": "Under Your Feet"},
             "project pop/pop fashion": {"route": "poppen", "text": "Poppen / dolls"},
-            # "hoofden": {"route": "hoofden", "text": "Hoofden"}
+            "hoofden": {"route": "hoofden", "text": "Faces x Silkscreen"}
         }
         recent_work_images = []
 
         for folder in recent_work_folders.keys():
 
             # fetch all images in the folder
-            response = cloudinary.api.resources(type="upload", prefix=folder + "/")
+            response = cloudinary.api.resources(type="upload", prefix=folder + "/", max_results=500)
 
             # filter images where public_id ends with 'main'
             for resource in response.get("resources", []):
-                print(resource["public_id"])
-                if resource["public_id"].endswith("main") or resource["public_id"].endswith("himfxttehwldszteybyj") or folder == "current_work":  # exact match for 'main'
+
+                if resource["public_id"].endswith("main") or folder == "current_work":  # exact match for 'main'
+                    
+                    # quickfix: hoofden in currentwork folder -> juiste route en titel
+                    if resource["public_id"].endswith("girls_currentwork"):
+                        folder = "hoofden"
+
                     data = {}
                     data["title"] = folder.split("-")[0]
                     data["url"] = resource["secure_url"]
@@ -86,9 +91,9 @@ def index(request):
         response = cloudinary.api.resources(type="upload", prefix="hoofden/", max_results=50)
         current_work_images = []
 
-        # filter images where public_id ends with 'main'
+        # filter work in progress images where public_id ends with 'wip'
         for resource in response.get("resources", []):
-            if resource["public_id"].endswith("main"):
+            if resource["public_id"].endswith("wip"):
                 current_work_images.append(resource["secure_url"])
                 
         # cache the results      
@@ -108,7 +113,6 @@ def index(request):
     }
 
     return render(request, "index.html", context)
-
 
 
 def under_your_feet(request):
@@ -186,7 +190,7 @@ def hoofden(request):
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
-        "title": "",
+        "title": "Faces x Silkscreen",
         "images":  image_urls
     }
     return render(request, "hoofden.html", context)
@@ -256,7 +260,7 @@ def state_of_decay(request):
     context = {
         "left_nav": left_nav,
         "right_nav": right_nav,
-            "title": "State of Decay",
+            "title": "Staat van Verval",
             "kriterion_image": kriterion_image,
             "poster_image": poster_image,
             "main_image": main_image,

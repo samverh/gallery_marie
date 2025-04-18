@@ -278,17 +278,17 @@ html { height: 100%;}
   position: fixed;
   bottom: 20px;
   right: 20px;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   border: none;
   background: transparent;
   border-radius: 50%;
   /* font-size: 24px; */
-  color: rgb(0, 0, 0); /* Color of the arrow icon */
+  color: rgba(0, 0, 0, 0.514); /* Color of the arrow icon */
   text-decoration: none;
   /* transition: transform 0.3s ease, color 0.3s ease; */
 }
 #backToTopBtn:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
   color: var(--navitem-hover-color);
 }
 

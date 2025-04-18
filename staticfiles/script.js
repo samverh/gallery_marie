@@ -141,27 +141,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
+    let touchStartTime = 0;
 
     function handleGesture() {
-        if (rightNav && touchStartX - touchEndX > 50) {
-            // Swiped left, go to right_nav
-            window.location.href = rightNav.href;
-        } else if (leftNav && touchEndX - touchStartX > 50) {
-            // Swiped right, go to left_nav
-            window.location.href = leftNav.href;
+        let deltaX = touchEndX - touchStartX;
+        let deltaY = Math.abs(touchEndY - touchStartY);
+        let duration = Date.now() - touchStartTime;
+
+        // check mostly horizontal swipe, enough distance, not too fast
+        if (Math.abs(deltaX) > 80 && deltaY < 50 && duration > 150) {
+            if (deltaX < 0 && rightNav) {
+                // swiped left
+                window.location.href = rightNav.href;
+            } else if (deltaX > 0 && leftNav) {
+                // swiped right
+                window.location.href = leftNav.href;
+            }
         }
     }
 
     document.addEventListener("touchstart", function (event) {
         touchStartX = event.changedTouches[0].screenX;
+        touchStartY = event.changedTouches[0].screenY;
+        touchStartTime = Date.now();
     });
 
     document.addEventListener("touchend", function (event) {
         touchEndX = event.changedTouches[0].screenX;
+        touchEndY = event.changedTouches[0].screenY;
         handleGesture();
     });
 });
+
 
 // tooltip mouse pointer
 document.addEventListener("DOMContentLoaded", function () {
